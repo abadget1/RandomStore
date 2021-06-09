@@ -4,6 +4,7 @@ import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { commerce } from "./lib/commerce";
 import ProductsList from './components/Products/ProductsList';
+import ProductDetail from './components/Products/ProductDetail/ProductDetail';
 
 // import {Cart,About, Home, CartItem, Checkout} from './components';
 import Cart from './components/Cart/Cart';
@@ -30,6 +31,7 @@ const App = () => {
     setCart(response);
   };
 
+  
   const addProduct = async (productId) => {
     const response = await commerce.cart.add(productId, 1);
     setCart(response.cart);
@@ -57,10 +59,10 @@ const App = () => {
 
   const handleCheckout = async (checkoutId, orderData) => {
     try {
-      // const incomingOrder = await commerce.checkout.capture(
-      //   checkoutId,
-      //   orderData
-      // );
+      const incomingOrder = await commerce.checkout.capture(
+        checkoutId,
+        orderData
+      );
 
       setOrderInfo(orderData);
 
@@ -86,8 +88,11 @@ const App = () => {
           cartitems={cartData.total_items}
           totalcost={(cartData.subtotal && cartData.subtotal.formatted_with_symbol) || "00.00"}/>
         <Switch>
-          <Route exact path="/">
+        <Route exact path="/">
             <ProductsList products={products} addProduct={addProduct} />
+          </Route>
+          <Route exact path={`/products/:id`}>
+            <ProductDetail products={products} addProduct={addProduct} />
           </Route>
           <Route path='/about'>
             <About/>

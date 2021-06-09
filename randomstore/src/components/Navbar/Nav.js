@@ -1,31 +1,23 @@
 import React from 'react'
-import {Row, Col, Card, Container, Navbar} from 'reactstrap';
+import {AppBar,Typography, Button ,Container,Card, CardMedia, Toolbar, IconButton, Badge  } from '@material-ui/core';
 import logo from '/Users/Aaron/RandomStore/randomstore/src/assets/abcode.png';
+import MenuIcon from '@material-ui/icons/Menu';
+import useStyles from './styles';
 
 const Nav = ({totalcost, cartitems}) => {
-
+    const styling = useStyles()
     return (
-        <>
-                <Navbar>
-        <Container className='container'>
-            <Card>
-        <Row>
-            <Col>
-                <img src={logo} alt='abcode.png' height='25px'/>ABCode
-            </Col>
-
-            <Col>
-            Total Items: {cartitems}
-            <br/>
-            {totalcost}
-        </Col>
-
-        </Row>
-        </Card>
-        </Container>
-        </Navbar>
-        </>
-    )
+        <AppBar position="static">
+        <Toolbar>
+            <Typography variant="h6" className={styling.title}>
+            Random Store
+            </Typography>
+            <Badge badgeContent={cartitems} color='secondary'>
+            <Button color="inherit" href='/cart'>Cart</Button>
+            </Badge>
+        </Toolbar>
+        </AppBar>
+    );
 }
 
 export default Nav

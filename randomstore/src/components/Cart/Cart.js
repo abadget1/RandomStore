@@ -9,13 +9,12 @@ const Cart = ({
   handleEmptyCart,
   RemoveItemFromCart
 }) => {
-    
-    // console.log([cartData]);
     const [showSpinner, setShowSpinner] = useState(true)
     
     const onEmptyCart = () => {
         handleEmptyCart();
     }
+
     const loading = () => {
       setTimeout(() => {
         setShowSpinner(false);
@@ -31,9 +30,6 @@ const Cart = ({
         return(
             <div className="cart">
                 <h4 className="cart_heading">Your Cart</h4>
-                {/* {renderEmptyCart} */}
-                {/* {FilledCart} */}
-                {/* {renderCart} */}
                 <div>
             {cartData.line_items.map((item) => (
               <div key={item.id}>
@@ -53,7 +49,7 @@ const Cart = ({
                 <a href='/home'>Home</a>
 
                 <br/>
-                <a href='/products'>Products</a>
+                <a href='/'>Products</a>
             </div>
         );
 }

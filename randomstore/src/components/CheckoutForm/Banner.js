@@ -1,6 +1,4 @@
-
-
-// import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 
 const Banner = () => {
@@ -8,12 +6,9 @@ const Banner = () => {
     <div className="basket-banner">
         <div>              
             Basket is empty press Shopping for adding new products</div>
-            <button className="shopping-button" href="/products">
+            <Button className="shopping-button" href="/">
               Shop
-            </button>
-
-
-
+            </Button>
     </div>
   );
 };

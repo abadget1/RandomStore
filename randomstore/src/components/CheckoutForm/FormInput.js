@@ -17,7 +17,6 @@ const FormInput = ({ name, label, required}) => {
                 error={isError}
                 render = {()=> ( <TextField label={label} fullWidth required/> )}/>
         </Grid>
-
        </>
      );
      }
