@@ -1,11 +1,7 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { red } from '@material-ui/core/colors';
-import theme from '/Users/Aaron/RandomStore/randomstore/src/assets/modules/theme.js';
-// import styles from '../../Navbar/styles';
 
 
-export default  makeStyles((theme) => ({
+export default makeStyles((theme) => ({
     icon: {
       marginRight: theme.spacing(2),
     },

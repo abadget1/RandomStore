@@ -1,33 +1,76 @@
-import React from 'react';
+import { Button, ButtonBase, Card, CardMedia, CircularProgress, Grid, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import  useStyles from './styles';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import { Link } from 'react-router-dom';
 
-const CartItem = ({  
-  item,
-  updateProduct,
-  RemoveItemFromCart}) => {
-
+const CartItem = ({ product, onUpdateProduct, RemoveItemFromCart }) => {
+  
+  const styles = useStyles();
   const handleUpdateCartQty = (lineItemId, newQuantity) => {
-    updateProduct(lineItemId, newQuantity);
+    onUpdateProduct(lineItemId, newQuantity);
   }
 
-  const handleRemoveFromCart = (lineItemId) => {
-    RemoveItemFromCart(lineItemId);
-  }
+  const handleRemoveFromCart  = e => {
+    e.preventDefault()
+    RemoveItemFromCart(product.id);
+  }  
+
+  const [showSpinner, setShowSpinner] = useState(true)
+    
+  const loading = () => {
+    setTimeout(() => {
+      setShowSpinner(false);
+    }, 2000);
+    if (showSpinner) {
+      return <><h2>Loading...</h2></>;
+    }
+    return <CircularProgress />;
+  };
+
+  if (!product || !product.name) return loading();
 
     return (
-      <div className="cart-item">
-        <img className="cart-item__image" src={item.media.source} alt={item.name} />
-        <div className="cart-item__details">
-          <h4 className="cart-item__details-name">{item.name}</h4>
-          <div className="cart-item__details-qty">
-            <button type="button" onClick={() => handleUpdateCartQty(item.id, item.quantity - 1)} title="Decrease quantity">-</button>
-            <button type="button" onClick={() => handleUpdateCartQty(item.id, item.quantity + 1)} title="Increase quantity">+</button>
-            <p>{item.quantity}</p>
-          </div>
-          <div className="cart-item__details-price">{item.line_total.formatted_with_symbol}</div>
-        </div>
-        <button type="button" className="cart-item__remove" onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
-      </div>
-    );
+      <div className={styles.paper}>
+
+      <Card className={styles.paper}>
+      <Grid container spacing={4}>
+        <Grid item>
+        <ButtonBase className={styles.image}>
+          <img className={styles.img} alt={product.name} src={product.media.source} />
+        </ButtonBase>
+        </Grid>
+        <Grid item xs={12} sm container>
+          <Grid item xs container direction="column" spacing={2}>
+            <Grid item xs>
+            <CardMedia image={product.media.source} title={product.name} />
+              <Typography gutterBottom variant="subtitle1">
+                {product.name}
+              </Typography>
+        
+            </Grid>
+            <Grid item>
+              <Button  color="secondary" style={{ cursor: 'pointer' }} onClick={handleRemoveFromCart}>
+                Remove
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid item>
+          <Typography variant="subtitle1" >{product.price.formatted_with_symbol}</Typography>
+          <Typography variant="subtitle2">Qty: {product.quantity}</Typography>
+          <Link size="small" onClick={() => handleUpdateCartQty(product.id, product.quantity + 1)}>
+          <AddCircleOutlineIcon />
+          </Link>
+          <Link color="primary" size="small" onClick={() => handleUpdateCartQty(product.id, product.quantity - 1)}>
+          <RemoveCircleOutlineIcon />          
+          </Link>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Card>
+    </div>
+    )
 };
 
 export default CartItem;

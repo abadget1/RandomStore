@@ -22,7 +22,9 @@ export default makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    margin: 0,
     alignItems: 'center',
+    textAlign: 'center',
     display: 'flex',
     textDecoration: 'none',
   },

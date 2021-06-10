@@ -1,6 +1,5 @@
+import React from "react";
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from "@material-ui/core";
-import React, { Component, useEffect } from "react";
-// import {ShoppingCartOutlinedIcon} from '@material-ui/icons';
 import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
 import useStyles from './styles'
 
@@ -11,6 +10,7 @@ const ProductItem = ({key, product, addProduct}) => {
     }
     const styles = useStyles();
     return (
+      
       <Card className={styles.root}>
         <CardActionArea>
         <CardContent>
@@ -18,7 +18,7 @@ const ProductItem = ({key, product, addProduct}) => {
           <Typography gutterBottom variant="h5" component="h2">
             {product.name}            
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2" color="textSecondary" component="">
             {product.description.replace(/<[^>]*>?/gm, '')}
           </Typography>
           </CardContent>
@@ -27,7 +27,7 @@ const ProductItem = ({key, product, addProduct}) => {
             <Typography variant='h5' >
               {product.price.formatted_with_symbol}
             </Typography>
-            <Button onClick={handleAddToCart}>
+            <Button className={styles.addToCart} onClick={handleAddToCart}>
               <AddShoppingCartOutlinedIcon/>
             </Button>
           </CardActions>

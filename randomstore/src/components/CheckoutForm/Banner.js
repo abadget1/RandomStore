@@ -6,7 +6,7 @@ const Banner = () => {
     <div className="basket-banner">
         <div>              
             Basket is empty press Shopping for adding new products</div>
-            <Button className="shopping-button" href="/">
+            <Button href="/">
               Shop
             </Button>
     </div>

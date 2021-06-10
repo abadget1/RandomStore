@@ -3,8 +3,6 @@ import { Typography, Button, Divider } from '@material-ui/core';
 import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-// import Review from './Review';
-
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptureCheckout }) => {
@@ -41,7 +39,6 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData, onCaptur
 
   return (
     <>
-      {/* <Review checkoutToken={checkoutToken} /> */}
       <Divider />
       <Typography variant="h6" gutterBottom style={{ margin: '20px 0' }}>Payment method</Typography>
       <Elements stripe={stripePromise}>

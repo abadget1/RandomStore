@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, ThemeProvider, useTheme } from "@material-ui/core";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { commerce } from "./lib/commerce";
 import ProductsList from './components/Products/ProductsList';
 import ProductDetail from './components/Products/ProductDetail/ProductDetail';
-
-// import {Cart,About, Home, CartItem, Checkout} from './components';
 import Cart from './components/Cart/Cart';
 import About from './pages/About.js';
 import Home from './pages/Home.js';
@@ -20,7 +17,7 @@ const App = () => {
   const [orderInfo, setOrderInfo] = useState({});
   const [orderError, setOrderError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  
+  const theme = useTheme();
   const fetchProducts = async () => {
     const response = await commerce.products.list();
     setProducts((response && response.data) || []);
@@ -47,8 +44,8 @@ const App = () => {
     setCart(response.cart);
   };
 
-  const updateProduct = async (productId) => {
-    const response = await commerce.cart.update(productId, 1);
+  const onUpdateProduct = async (productId, quantity) => {
+    const response = await commerce.cart.update(productId, {quantity});
     setCart(response.cart);
   };
 
@@ -56,22 +53,15 @@ const App = () => {
     const newCartData = await commerce.cart.refresh();
     setCart(newCartData);
   };
-
-  const handleCheckout = async (checkoutId, orderData) => {
+  const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
     try {
-      const incomingOrder = await commerce.checkout.capture(
-        checkoutId,
-        orderData
-      );
+      const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
 
-      setOrderInfo(orderData);
+      setOrderInfo(incomingOrder);
 
       refreshCart();
     } catch (error) {
-      setOrderError(
-        (error.data && error.data.error && error.data.error.message) ||
-          "There is an error occurred"
-      );
+      setErrorMessage(error.data.error.message);
     }
   };
 
@@ -84,6 +74,7 @@ const App = () => {
     <Router>
       <div>
         <CssBaseline />
+        <ThemeProvider theme={theme}>
         <Nav
           cartitems={cartData.total_items}
           totalcost={(cartData.subtotal && cartData.subtotal.formatted_with_symbol) || "00.00"}/>
@@ -103,7 +94,7 @@ const App = () => {
           <Route exact path="/cart">
           <Cart
               cartData={cartData}
-              updateProduct={updateProduct}
+              onUpdateProduct={onUpdateProduct}
               handleEmptyCart={handleEmptyCart}
               RemoveItemFromCart={RemoveItemFromCart}
             />
@@ -112,12 +103,13 @@ const App = () => {
             <Checkout
             cartData={cartData} 
             order={orderInfo} 
-            onCaptureCheckout={handleCheckout} 
+            onCaptureCheckout={handleCaptureCheckout} 
             error={errorMessage}
             />
           </Route>
         </Switch>
         <Footer />
+        </ThemeProvider>
       </div>
     </Router>
   );

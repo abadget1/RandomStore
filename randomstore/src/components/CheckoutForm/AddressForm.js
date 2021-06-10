@@ -38,7 +38,7 @@ const AddressForm = ({ checkoutToken, test }) => {
 
   useEffect(() => {
     fetchShippingCountries(checkoutToken.id);
-  }, []);
+  } );
 
   useEffect(() => {
     if (shippingCountry) fetchSubdivisions(shippingCountry);
@@ -50,7 +50,7 @@ const AddressForm = ({ checkoutToken, test }) => {
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>Shipping address</Typography>
+    <Typography variant="h6" gutterBottom>Shipping address</Typography>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit((data) => test({ ...data, shippingCountry, shippingSubdivision, shippingOption }))}>
           <Grid container spacing={3}>
@@ -83,7 +83,7 @@ const AddressForm = ({ checkoutToken, test }) => {
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Options</InputLabel>
               <Select value={shippingOption} fullWidth onChange={(e) => setShippingOption(e.target.value)}>
-                {shippingOptions.map((shipOpt) => ({ id: shipOpt.id, label: `${shipOpt.description} - (${shipOpt.price.formatted_with_symbol})` })).map((item) => (
+                {shippingOptions.map((sO) => ({ id: sO.id, label: `${sO.description} - (${sO.price.formatted_with_symbol})` })).map((item) => (
                   <MenuItem key={item.id} value={item.id}>
                     {item.label}
                   </MenuItem>
@@ -99,6 +99,7 @@ const AddressForm = ({ checkoutToken, test }) => {
         </form>
       </FormProvider>
     </>
+
   );
 };
 
