@@ -30,15 +30,20 @@ const AddressForm = ({ checkoutToken, test }) => {
   };
 
   const fetchShippingOptions = async (checkoutTokenId, country, stateProvince = null) => {
+    const abortController = new AbortController();
     const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country, region: stateProvince });
 
     setShippingOptions(options);
     setShippingOption(options[0].id);
+    
+    return () => {
+      abortController.abort();
+    };
   };
 
   useEffect(() => {
     fetchShippingCountries(checkoutToken.id);
-  } );
+  }, []);
 
   useEffect(() => {
     if (shippingCountry) fetchSubdivisions(shippingCountry);
@@ -46,11 +51,37 @@ const AddressForm = ({ checkoutToken, test }) => {
 
   useEffect(() => {
     if (shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision);
-  }, [checkoutToken.id, shippingCountry, shippingSubdivision]);
+  }, [shippingSubdivision]);
 
-  return (
+  // useEffect(() => {
+  //   const abortController = new AbortController();
+
+  //   const fetchData = async () => {
+      
+      
+  //     dispatchEvent(requestStarted());
+
+  //     try {
+  //       fetch(url, { signal: abortController.signal });
+
+  //       // code omitted for brevity
+  //       dispatchEvent(requestSuccessful({ data }));
+
+  //     } catch (e) {
+  //       dispatch(requestFailed({ error: e.message }));
+  //     }
+  //   };
+
+  //   fetchData();
+
+  //   return () => {
+  //     abortController.abort();
+  //   };
+  // }, [url]);
+
+   return (
     <>
-    <Typography variant="h6" gutterBottom>Shipping address</Typography>
+      <Typography variant="h6" gutterBottom>Shipping address</Typography>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit((data) => test({ ...data, shippingCountry, shippingSubdivision, shippingOption }))}>
           <Grid container spacing={3}>
@@ -99,7 +130,6 @@ const AddressForm = ({ checkoutToken, test }) => {
         </form>
       </FormProvider>
     </>
-
   );
 };
 

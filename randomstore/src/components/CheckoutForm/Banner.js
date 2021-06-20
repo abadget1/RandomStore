@@ -1,15 +1,15 @@
-import { Button } from "@material-ui/core";
-
+import { Button, Typography } from "@material-ui/core";
+import useStyles from './styles';
 
 const Banner = () => {
+  const styles = useStyles();
   return (
-    <div className="basket-banner">
-        <div>              
-            Basket is empty press Shopping for adding new products</div>
-            <Button href="/">
-              Shop
-            </Button>
-    </div>
+    <div className={styles.empty}>
+      <Typography variant='h5'>Your basket is start shopping for new products!</Typography>
+      <Button variant='outlined' href="/">
+        Shop
+      </Button>
+    </div> 
   );
 };
 

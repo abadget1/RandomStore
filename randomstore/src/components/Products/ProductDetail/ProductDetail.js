@@ -1,4 +1,4 @@
-import { Button, Typography, CardMedia, Card, Grid, CircularProgress} from '@material-ui/core'
+import { Button, Typography, CardMedia, Card, Grid, CircularProgress, Container, LinearProgress} from '@material-ui/core'
 import React, {useEffect, useState} from 'react'
 import { commerce } from '../../../lib/commerce';
 import  useStyles from './styles';
@@ -29,21 +29,21 @@ const ProductDetail = ({products, addProduct}) => {
 
   const product = getProduct(productId);
   const styles = useStyles();
-
     
     const loading = () => {
       setTimeout(() => {
         setShowSpinner(false);
-      }, 2000);
+      }, 3000);
       if (showSpinner) {
-        return <><h2>Loading...</h2></>;
+        return <LinearProgress color="secondary"/>;
       }
-      return <CircularProgress />;
+      // return <Banner />;
     };
 
-    if (!product || !product.name) return loading();
+    if (!product) return loading();
 
     return (
+      <Container className={styles.main}>
       <Card className={styles.root}>
         <Grid container spacing={4}>
         <Grid item xs={12} sm={6}>
@@ -53,7 +53,7 @@ const ProductDetail = ({products, addProduct}) => {
           <Typography component="h2" variant="h5">
             {product.name}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
+          <Typography variant="subtitle2" color="textSecondary">
             {product.price.formatted_with_symbol}
           </Typography>
           <Typography variant="subtitle1" paragraph>
@@ -71,6 +71,7 @@ const ProductDetail = ({products, addProduct}) => {
         </Grid>
         </Grid>
       </Card>
+      </Container>
     )
 }
 

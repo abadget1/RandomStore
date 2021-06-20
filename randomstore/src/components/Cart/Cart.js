@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import CartItem from './CartItem';
 import Banner from '../CheckoutForm/Banner'
-import { Button, Card, Grid, Typography } from '@material-ui/core';
+import { Button, Card, Grid, Typography, LinearProgress, CircularProgress } from '@material-ui/core';
 import  useStyles from './styles';
 
 const Cart = ({ 
@@ -23,12 +23,12 @@ const Cart = ({
         setShowSpinner(false);
       }, 2000);
       if (showSpinner) {
-        return <><p>Loading...</p></>;
+        return <LinearProgress color="secondary" />;
       }
       return <Banner />;
     };
 
-
+    console.log({cartData})
         if (!cartData.line_items || !cartData.line_items.length) return loading();
         return(
           <Card className={styles.main}>
@@ -48,12 +48,13 @@ const Cart = ({
 
               </Grid>
               <Grid item xs={12}>
-            {cartData.line_items.map((product) => (
-               <CartItem 
-               product={product} 
-               onUpdateProduct={onUpdateProduct}
-               RemoveItemFromCart={RemoveItemFromCart}/>
-            ))}
+                {cartData.line_items.map((product) => (
+                  
+                  <CartItem 
+                  product={product} 
+                  onUpdateProduct={onUpdateProduct}
+                  RemoveItemFromCart={RemoveItemFromCart}/>
+                ))}
             </Grid>
             <Grid item xs={12} >
             <Typography gutterBottom className={styles.total}>

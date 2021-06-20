@@ -1,4 +1,4 @@
-import { Button, ButtonBase, Card, CardMedia, CircularProgress, Grid, Typography } from '@material-ui/core';
+import { Button, ButtonBase, Card, CardMedia, CardActions, LinearProgress, Grid, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import  useStyles from './styles';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -24,17 +24,19 @@ const CartItem = ({ product, onUpdateProduct, RemoveItemFromCart }) => {
       setShowSpinner(false);
     }, 2000);
     if (showSpinner) {
-      return <><h2>Loading...</h2></>;
+      return <LinearProgress/>;
     }
-    return <CircularProgress />;
+    return <LinearProgress />;
   };
 
+  console.log(product.name);
   if (!product || !product.name) return loading();
 
     return (
       <div className={styles.paper}>
 
       <Card className={styles.paper}>
+        {/* <Link className={styles.btn} to={`/products/${product}`}> */}
       <Grid container spacing={4}>
         <Grid item>
         <ButtonBase className={styles.image}>
@@ -44,7 +46,8 @@ const CartItem = ({ product, onUpdateProduct, RemoveItemFromCart }) => {
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
-            <CardMedia image={product.media.source} title={product.name} />
+            {/* <CardMedia image={product.media.source} title={product.name} /> */}
+              
               <Typography gutterBottom variant="subtitle1">
                 {product.name}
               </Typography>
@@ -68,6 +71,7 @@ const CartItem = ({ product, onUpdateProduct, RemoveItemFromCart }) => {
           </Grid>
         </Grid>
       </Grid>
+      {/* </Link> */}
     </Card>
     </div>
     )

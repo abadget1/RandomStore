@@ -1,8 +1,9 @@
 import { makeStyles, fade } from '@material-ui/core/styles';
+import theme from '../../assets/modules/theme';
 
 const drawerWidth = 0;
 
-export default makeStyles((theme) => ({
+export default makeStyles({
   appBar: {
     boxShadow: 'none',
     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
@@ -17,8 +18,9 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
 
   },
-  navbar: {
-
+  home: {
+    color: 'white',
+    backgroundColor: 'transparent',
   },
   title: {
     flexGrow: 1,
@@ -76,4 +78,4 @@ export default makeStyles((theme) => ({
       width: '20ch',
     },
   },
-}));
+});

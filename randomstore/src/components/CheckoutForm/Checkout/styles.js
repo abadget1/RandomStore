@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
+import theme from '../../../assets/modules/theme';
 
-export default makeStyles((theme) => ({
+export default makeStyles({
   appBar: {
     position: 'relative',
   },
@@ -49,4 +50,8 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-}));
+  confirmation : {
+    padding: 40,
+    textAlign: 'center',
+  },
+});

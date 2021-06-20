@@ -10,6 +10,7 @@ import Home from './pages/Home.js';
 import Checkout from './components/CheckoutForm/Checkout/Checkout';
 import Nav from './components/Navbar/Nav';
 import Footer from './components/Footer/Footer';
+import theme from './assets/modules/theme';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -17,7 +18,9 @@ const App = () => {
   const [orderInfo, setOrderInfo] = useState({});
   const [orderError, setOrderError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const theme = useTheme();
+
+
+  
   const fetchProducts = async () => {
     const response = await commerce.products.list();
     setProducts((response && response.data) || []);
@@ -66,8 +69,12 @@ const App = () => {
   };
 
   useEffect(() => {
+    const abortController = new AbortController();
     fetchProducts();
     fetchCartData();
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   return (
@@ -90,6 +97,7 @@ const App = () => {
           </Route>
           <Route path='/Home'>
             <Home/>
+            
           </Route>
           <Route exact path="/cart">
           <Cart
@@ -105,6 +113,8 @@ const App = () => {
             order={orderInfo} 
             onCaptureCheckout={handleCaptureCheckout} 
             error={errorMessage}
+            // For demo purpose only!
+            refreshCart={refreshCart}
             />
           </Route>
         </Switch>

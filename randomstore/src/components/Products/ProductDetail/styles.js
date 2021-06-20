@@ -3,12 +3,20 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 export default makeStyles((theme) => ({
+  
+  main: {
+    justify: 'center',
+    paddingTop: '5%',
+    minWidth: '50%',
+  },
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+    // border: '1px solid',
+    padding: 40,
   },
   gridList: {
     width: 500,
@@ -31,10 +39,11 @@ export default makeStyles((theme) => ({
     flex: 1,
   },
   cardMedia: {
-    width: 160,
+    // width: 160,
+    height: '100vh',
   },
   media: {
-    height: 100,
+    height: '50vh',
     paddingTop: '56.25%', // 16:9
     padding: 40, // 16:9
     

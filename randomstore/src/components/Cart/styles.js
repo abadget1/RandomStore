@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
-import theme from '/Users/Aaron/RandomStore/randomstore/src/assets/modules/theme.js';
+import theme from '../../assets/modules/theme';
+
 
 
 export default makeStyles({
@@ -33,5 +34,9 @@ export default makeStyles({
   updateBtn: {
     margin: 0,
   },
+  btn: {
+    textDecoration: 'none',
+
+  }
 });
   

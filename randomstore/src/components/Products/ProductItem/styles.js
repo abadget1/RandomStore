@@ -3,14 +3,24 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles({
     root: {
-        maxWidth: 345,
-        borderRadius: 25,
+      // minWidth: '20vh',
+      // border: '1px solid',
+      spacing: 10,
+      // borderRadius: 25,
+      padding: 20,
       },
       media: {
-        height: 200,
-        maxWidth: 400,
+        minHeight: '20vh',
+        minWidth: '40vh',
       },
       addToCart: {
-        width: 100,
+        // width: 100,
+      },
+      grid: {
+        margin: 0,
+        spacing: 3,
+        padding: 10,
+        textDecoration: 'none',
+        // border: '2px solid red'
       },
     });

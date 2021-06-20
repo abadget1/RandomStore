@@ -4,15 +4,17 @@ import {AppBar,Typography, Button , Toolbar, Badge, Grid, Card, Link  } from '@m
 import useStyles from './styles';
 
 const Nav = ({totalcost, cartitems}) => {
-    const styling = useStyles()
+    const styles = useStyles()
     return (
         <AppBar position="static">
         <Toolbar>
         <Grid container spacing={2}>
-                <Grid xs>
-                    <Typography variant="h6" className={styling.title}>
+                <Grid item xs>
+                    <Button className={styles.home} disableFocusRipple disableRipple href='/'>
+                    <Typography variant="h5" className={styles.title}>
                         Random Store
                     </Typography>
+                    </Button>
                 </Grid>
                 <Grid item xs={6}>   
                 <div align="center">
