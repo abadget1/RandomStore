@@ -1,4 +1,4 @@
-# Random Item E-Commerce Store
+#E-Commerce Store
 ### [Live Site](https://randomstore-e7f2a.web.app)
 
 
